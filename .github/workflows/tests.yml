@@ -32,6 +32,16 @@ jobs:
           coverage: xdebug #optional
       - name: Start mysql service
         run: sudo /etc/init.d/mysql start
+      - name: login mysql
+        run: mysql -u root -p
+      - name: change passwoerd
+        run: SET PASSWORD FOR 'user-name-here'@'hostname-name-here' = PASSWORD('new-password-here');
+      - name: change password 2
+        run: UPDATE mysql.USER SET Password=PASSWORD('new-password-here') WHERE USER='user-name-here' AND Host='host-name-here';
+      - name: chnage password 2
+        run: FLUSH PRIVILEGES;
+      - name: exit database
+        run: type quit or exit;
       - uses: actions/checkout@v1
       - name: Run composer install
         run: composer install
