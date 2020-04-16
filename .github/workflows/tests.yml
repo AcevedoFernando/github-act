@@ -32,17 +32,23 @@ jobs:
           extensions: mbstring, dom, fileinfo, mysql
           coverage: xdebug #optional
       - name: Start mysql service
-        run: sudo /etc/init.d/mysql start
+        run: sudo cat /etc/mysql/debian.cnf
       - name: login mysql
+        run: mysql -u debian-sys-maint -p
+      - name: login mysql 1
+        run: use mysql;
+      - name: login mysql 2
+        run: UPDATE user SET plugin='mysql_native_password' WHERE User='root';
+      - name: lognn 3
+        run: update user set authentication_string=PASSWORD("mysql") where User='root';
+      - name: kignug 34
+        run: ALTER USER 'root'@'localhost' IDENTIFIED BY 'mysql';
+      - name: gdgdgd
+        run: flush privileges;
+      - name: ggg
+        run: exit;
+      - name: fsfsf
         run: mysql -u root -p
-      - name: change passwoerd
-        run: SET PASSWORD FOR 'user-name-here'@'hostname-name-here' = PASSWORD('new-password-here');
-      - name: change password 2
-        run: UPDATE mysql.USER SET Password=PASSWORD('new-password-here') WHERE USER='user-name-here' AND Host='host-name-here';
-      - name: chnage password 2
-        run: FLUSH PRIVILEGES;
-      - name: exit database
-        run: type quit or exit;
       - uses: actions/checkout@v1
       - name: Run composer install
         run: composer install
